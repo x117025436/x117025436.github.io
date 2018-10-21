@@ -32,3 +32,13 @@ plt.subplot(1,4,4)
 plt.plot(x7,y4)
 plt.title(r'$f(t)=sin{\omega （t-t0) } u(t-t0), \omega = \frac{4}{8}\pi,t0=2 $') 
 plt.show()
+
+
+
+
+
+
+
+
+
+
