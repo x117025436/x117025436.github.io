@@ -1,36 +1,85 @@
 
 <html>
 
-<head>  <title> 个人主页  </title>
+<head>  <title>   </title>
 
     <style type="text/css">
-           #grad1 {
-              
-               }
-            
     
            a{
               font-family:Verdana, sans-serif;
               text-decoration: none;
               color:rgb(78, 77, 70)
            }
-           a:hover,a:active{
+          #num2 a:hover,a:active{
             color:#ffffff
            }
-           body {background-color:rgb(95, 215, 236);
-            background: linear-gradient(rgb(95, 215, 236) 30%,rgba(247, 251, 255, 0.438) 80%);}
-        
-        
+          body{background-image:url(主页上部分背景.jpg);/*背景尺寸1919x607*/
+                 background-repeat:no-repeat;  /*铺满*/
+            }
+          div#num1{
+            margin-top:200px;  /*距离顶部200px*/
+           }
+        div#num2{
+        text-align:center;
+
+        }
+        #num2 ul{
+            
+           width:100px;
+
+           text-align:center;
+           display:inline;
+           font-weight: bold; /*字体加粗*/
+           list-style:none; /*去除左边的标志*/
+           
+        }
+              #num2 ul li{
+                   display:inline;
+             position:relative;
+             border:1px solid #e2e0e1;  /*设置边框颜色*/
+             padding:5px 5px  5px;  /*边框内距10px*/
+ 
+ 
+
+        }
+        #num2 ul li ul{
+            display:none;
+            position:absolute;
+            left:89px;
+            top:-6px;
+            width:100px;
+            list-style:none; /*去除左边的标志*/
+        }
+
+        #num2 ul li.current ul{display:block;}
+        #num2 ul li:hover ul{display:block;}
 
         </style>
-</head> <body> 
-      <p>
-    <h1  style="text-align:center"> 个人主页 </h1> </p>
-    <h2><pre>   作业</pre></h2>
-<ol><li><a href="https://www.baidu.com/">Go to Baidu</a></li>
-    <li><a href="https://nba.hupu.com/">Go to Hupu</a></li>
-    <li><a href="index1.html">1.1</a></li>
-    </ol>
-    <div id="grad1"></div>
+</head> 
+<body> 
+
+<div id="num1"style="color:#e2e0e1">
+    <p >
+    <big><h1  style="text-align:center"> About us </h1> </big>
+    </p>
+    <h2 style="text-align:center"><pre></pre></h2>
+    </div>
+    
+    <div id="num2"style="color:#e2e0e1">
+    <ul>
+    <li><big>
+    <a href="#">
+    信号与系统
+    </a>
+    <ul>
+    <li>
+    <a href="#">信号</a>
+     </li>
+     </ul>
+    </big>
+    </li>
+    </ul>
+    
+    </div>
 </body>
 </html>
