@@ -1,23 +1,33 @@
 
 <html>
 
-<head>  <title>   </title>
+<head>  <title>个人主页</title>
 
     <style type="text/css">
     
            a{
               font-family:Verdana, sans-serif;
               text-decoration: none;
-              color:rgb(78, 77, 70)
+              color:#e2e0e1;
+              padding: 5px;
+              border-radius: 30px;
+                          -moz-transition: all 1s ease 0s;   /*按钮渐变*/
+             -webkit-transition:all 1s ease 0s;              /*按钮渐变*/
+              transition:all 1s ease 0s;                     /*按钮渐变*/
+               -o-transition:all 1s ease 0s;                 /*按钮渐变*/
            }
-          #num2 a:hover,a:active{
-            color:#ffffff
+           a:hover,a:active{
+            background-color:#e2e0e1;
+            color:#ffffff;
+            
            }
+
           body{background-image:url(主页上部分背景.jpg);/*背景尺寸1919x607*/
                  background-repeat:no-repeat;  /*铺满*/
+                 background-color:rgb(24,24,24);
             }
           div#num1{
-            margin-top:200px;  /*距离顶部200px*/
+            margin-top:150px;  /*距离顶部200px*/
            }
         div#num2{
         text-align:center;
@@ -36,23 +46,12 @@
               #num2 ul li{
                    display:inline;
              position:relative;
-             border:1px solid #e2e0e1;  /*设置边框颜色*/
-             padding:5px 5px  5px;  /*边框内距10px*/
+             
+             
  
  
 
         }
-        #num2 ul li ul{
-            display:none;
-            position:absolute;
-            left:89px;
-            top:-6px;
-            width:100px;
-            list-style:none; /*去除左边的标志*/
-        }
-
-        #num2 ul li.current ul{display:block;}
-        #num2 ul li:hover ul{display:block;}
 
         </style>
 </head> 
@@ -60,22 +59,14 @@
 
 <div id="num1"style="color:#e2e0e1">
     <p >
-    <big><h1  style="text-align:center"> About us </h1> </big>
+    <big><h1  style="text-align:center">out me</h1> </big>
     </p>
     <h2 style="text-align:center"><pre></pre></h2>
     </div>
-    
     <div id="num2"style="color:#e2e0e1">
     <ul>
     <li><big>
-    <a href="#">
-    信号与系统
-    </a>
-    <ul>
-    <li>
-    <a href="#">信号</a>
-     </li>
-     </ul>
+    <a href="index1.html">信号与系统</a>
     </big>
     </li>
     </ul>
