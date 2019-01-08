@@ -1,0 +1,51 @@
+<html>
+<head>
+ <style type="text/css">
+  #div1{
+    border:1px;
+    width:600px;
+    height:160px;
+     background-color:red;
+      overflow: hidden; /*防止溢出*/
+  }
+  @keyframes typing{
+               from{width:0}
+           }
+           @keyframes caret{
+               50%{border-color:currentColor;}
+           }
+  h1{
+    width:15ch;
+    border-right:0.5em solid transparent;
+    overflow:hidden;
+    white-space:nowarp;
+animation:typing 4s steps(15),caret 2s steps(1) infinite;
+  }
+  </style>
+<script type="text/javascript">
+$$('h1').forEach(function(h1){
+  var len =h1.textContent.length,s=h1.style;
+  s.width=len+'ch';
+  s.animationTimingFunction="steps("+len+"),steps(1)";
+});
+ function ab(){
+   var white=document.getElementById('div1');
+white.style.background='white';
+
+}
+</script>
+</head>
+<body>
+<input type="button" value="123" onclick="ab()">
+
+<div id="div1">
+
+131313131564546546556456</div>
+</body>
+<h1>123456789112345</h1>
+</html>
+              
+              
+              
+              /*text-align:center;   居中*/
+              /*display:block;      将span设为块级元素使↑居中成为可能*/
