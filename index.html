@@ -118,7 +118,7 @@
         }
 
     
-        div#num3{
+        div#num3 {
             background-image:url(声波.jpg);
             margin-top:1000px;
             position:absolute;
@@ -127,8 +127,8 @@
             height:70%;
             border-radius:40px;
             margin-left:480px;
-            background-attachment: fixed;
-           transition:all 1.5s ease 0s;
+            /*background-attachment: fixed;*/
+           /*transition:all 1.5s ease 0s;*/
            display:table;
         }
 
@@ -185,6 +185,9 @@
         scroll-behavior:smooth;
         
         }
+
+
+    
         div#num5{
             position:absolute;
             width:100%;
@@ -312,18 +315,22 @@ div#num10{
     <h1><span  style='text-align:center'>Welcome to </span></h1>
    <h1><span  style="text-align:center">&nbsp;Dior's blog</span></h1><br />
    
-   <hr width="5%"><br/>
+   <hr width=5% style="text-align:center"><br/>
 <span style="text-align:center;font-size:20px;"> &nbsp;Here's what I want </span>
                    <span style="text-align:center;font-size:20px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;to show you </span>   
                    
     </div>
     <div id="num3">
-    <a href='javascript:void(0);' id="link"  onclick="changeup()">内&nbsp;容</a>
+    <a href='javascript:void(0);' id="link"  onclick="changeup()">简&nbsp;介</a>
     <span><h1 ><font color='black'> 465489
     </font></h1> </span>
     </div>
     <div id="num4">
-        
+        ​ &nbsp;&nbsp;人能够很容易的听出说话人的性别，我们能不能让机器也像人一样，听声辨别性别？这个答案是肯定的，特别是随着人工智能算法的发展，识别性能是不断的提升。本实验就是通过声音识别男女性别。类的声音每个人都有自己的特性，例如人类基音的范围约为70～350Hz左右，由于生理结构的不同，男性与女性的声音呈现出不同的听觉特征，男声的基音频率大都在100—200HZ之间，而女声则在200—350HZ之间。主要分为三个部分
+        </p>第一是对声音文件进行特征提取
+        </p>第二是通过机器学习方法建立男女性别分类模型
+        </p>第三则是加载模型进行声音文件测试
+
     </div>
 <div id="num5">
 <span id="c1"><h1>过程</h1></span>
@@ -334,20 +341,24 @@ div#num10{
 <div id='num7' style="margin-top:400PX"></div>
 <div id='num7' style="float:right;margin-top:194px;margin-right:601px"></div>
 </div>
-<div id="num8">564564jrs;gj;gjijvl;frdjsdkjfdsjgFASFAFAFASFASFAFASdhf;vkhdslivn;irhvdorhvoh;ovhrei65456</div>
+<div id="num8"><p style="text-align:center">特征提取</p>核心思想： 最大方差理论，在信号处理中认为信号具有较大的方差，噪声有较小的方差，信噪比就是信号与噪声的方差比，越大越好。因此我们认为，最好的k维特征是将n维样本点变换为k维后，每一维上的样本方差都尽可能的大。
+具体思想到推理，给出了一个很好的过程。</p>利用R语言实现，可以使用R语言的warbleR包，使用一个开源的R语言函数包能提取出20个特征，通过脚本处理好的3000多条特征文件，可以直接加载训练模型。
+
+
+</div>
 <div id="num8"style="margin-top:1950px;
 margin-left:1300px;
 border-top-right-radius:5%;
 border-bottom-right-radius:5%;
 border-top-left-radius:0%;
-border-bottom-left-radius:0%">5ovhrei65456</div>
-<div id="num8" style="margin-top:2150px">564564jrs;gj;gjijvl;frdjsdkjfdsjgFASFAFAFASFASFAFASdhf;vkhdslivn;irhvdorhvoh;ovhrei65456</div>
+border-bottom-left-radius:0%"><p style="text-align:center">机器学习</p>利用xgboost算法，Xgboost是GB算法的高效实现，xgboost算法的步骤首先初始化为一个常数根据一阶导数g和二阶导数h，迭代生成基学习器，相加更新学习器。xgboost考虑了训练数据为稀疏值的情况，可以为缺失值或者指定的值指定分支的默认方向，这能大大提升算法的效率。xgboost 还考虑了当数据量比较大，内存不够时怎么有效的使用磁盘，主要是结合多线程、数据压缩、分片的方法，尽可能的提高算法的效率。</div>
+<div id="num8" style="margin-top:2150px"><p style="text-align:center">测试过程</p>正如我们所知，将一段需要测试的男生或女生的声音文件（.wav）输入，进行特征的提取，并且与之前的训练模型进行比较，根据男女生声音特性的不同，例如基因频率，输出结果。</div>
 <div id="num8"style="margin-top:2350px;
 margin-left:1300px;
 border-top-right-radius:5%;
 border-bottom-right-radius:5%;
 border-top-left-radius:0%;
-border-bottom-left-radius:0%">5ovhrei65456</div>
+border-bottom-left-radius:0%"><p style="text-align:center">总结</p>在完成设计实验的过程中，我们深刻意识到自己能力的不足和知识的短浅，有许多代码的问题都需要查找资料才能进行有效的解决，不过在这个过程中让我们学到了很多东西，这让我们非常开心和满足。</div>
 <div id="num9"></div>
 <div id="num10"></div>
 </body>

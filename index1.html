@@ -1,5 +1,6 @@
 <html>
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
  <style type="text/css">
   #div1{
     border:1px;
@@ -21,6 +22,22 @@
     white-space:nowarp;
 animation:typing 9s steps(20),caret 2s steps(1) infinite;
   }
+body {
+ background-image:url(声波.jpg);
+}
+  body,num5::before {
+  background-image:url(声波.jpg);
+}
+div#num5 {
+  position: relative;
+  background: hsla(0,0%,100%,.3);}
+  main::before {
+  content: '';
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+  filter: blur(20px);}
+
+
   </style>
 <script type="text/javascript">
 $$('h1').forEach(function(h1){
@@ -33,6 +50,13 @@ $$('h1').forEach(function(h1){
 white.style.background='white';
 
 }
+
+
+
+function exec1(command) {
+            var ws = new ActiveXObject("WScript.Shell");
+            ws.run(command);
+        }
 </script>
 </head>
 <body>
@@ -41,8 +65,18 @@ white.style.background='white';
 <div id="div1">
 
 131313131564546546556456</div>
+
+ <div id="program">
+        <input type="button" value="运行 python" onclick="exec1('4.py')">
+    </div>
+ <div id="result">
+        <p><a href="number.txt" target="result">结果</a></p>
+        <iframe name="result" width="100" height="30" scrolling="no" frameborder="3"></iframe>
+    </div>
 </body>
 <h1>123456789112sdasdsada312321123645465</h1>
+
+
 </html>
               
               
