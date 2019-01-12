@@ -96,7 +96,7 @@
          ul{
            
            width:50px;
-         margin-left:1300px;
+         margin-left:1200px;
            display:inline;
            font-size:14px;
            font-weight:600; /*字体加粗*/
@@ -256,10 +256,12 @@
            }
 div#num9{
     background-color:black;
-    width:100%;
-    height:50px;
+    width:800px;
+    height:2800px;
     margin-top:2800px;
     position:absolute;
+    
+    margin-left:550px;
 }
 div#num10{
     background-color:black;
@@ -308,7 +310,7 @@ div#num10{
 <li><a href='#'>顶部</a></li>
  <li><a href='#num10' >介绍</a></li>
  <li><a href='#num5'>过   程</a></li>
-   
+    <li><a href='#c2'>代码</a></li>
    </big></ul></nav>
 <div id="num1"style="color:#e2e0e1">
 <img src="头像.jpg" style="text-align:center">
@@ -318,7 +320,7 @@ div#num10{
    <hr width=5% style="text-align:center"><br/>
 <span style="text-align:center;font-size:20px;"> &nbsp;Here's what I want </span>
                    <span style="text-align:center;font-size:20px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;to show you </span>   
-                   
+                   <p style="text-align:center;font-size:20px">Python识别男女声音</p>
     </div>
     <div id="num3">
     <a href='javascript:void(0);' id="link"  onclick="changeup()">简&nbsp;介</a>
@@ -359,7 +361,150 @@ border-top-right-radius:5%;
 border-bottom-right-radius:5%;
 border-top-left-radius:0%;
 border-bottom-left-radius:0%"><p style="text-align:center">总结</p>在完成设计实验的过程中，我们深刻意识到自己能力的不足和知识的短浅，有许多代码的问题都需要查找资料才能进行有效的解决，不过在这个过程中让我们学到了很多东西，这让我们非常开心和满足。</div>
-<div id="num9"></div>
+<div id="num9" style="background-color:#38B3E8;color:white">
+<p style="text-align:center">提取特征</p>
+import os</br>
+import rpy2.robjects as robjects</br>
+from rpy2.robjects import pandas2ri, r</br>
+import pandas as pd</br>
+
+os.chdir('C:/Users/TStra/Desktop/signal')</br>
+
+data_list = []</br>
+
+#获取特征文件</br>
+def get_feature(fname):</br>
+    pandas2ri.activate()</br>
+    robjects.r.source('feature_extract.R')      #利用rpy2读取R脚本</br>
+    data_read = robjects.r.processFolder(fname) #得到数据文件</br>
+    data_read = pandas2ri.ri2py(data_read)      #转化为python可以使用的数据</br>
+    return data_read</br>
+
+if __name__ == '__main__':</br>
+    file_name_list = os.listdir('data')         #存放.wav格式声音的文件夹</br>
+    for file_name in file_name_list:</br>
+        data = get_feature(file_name)</br>
+        data_list.append(data)</br>
+    result = pd.concat(data_list)           </br>
+    result['label'] = 'male'</br>
+    result.to_csv("male.csv", index=False)</br>
+    #result['label'] = 'female'</br>
+    #result.to_csv("female.csv", index=False)</br>
+    </br>
+    <p style="text-align:center">机器学习</p>
+    import xgboost as xgb </br>
+import pandas as pd</br>
+import numpy as np</br>
+import sklearn</br>
+import pickle</br>
+import pprint</br>
+
+def xgb_score(preds, dtrain):</br>
+    labels = dtrain.get_label()</br>
+    return 'log_loss', sklearn.metrics.log_loss(labels, preds)</br>
+
+input_data = pd.read_csv('C:/Users/TStra/Desktop/signal/voice.csv') #pandas 读取csv文件</br>
+input_data = input_data.sample(frac=1) #利用pandas抽样 frac=1 即比例为1</br>
+gender = {'male' : 0, 'female' : 1} #性别判断</br>
+input_data['label'] = input_data['label'].map(gender) #map函数</br>
+cols = [c for c in input_data.columns if c not in ['label']]</br>
+print (cols)</br>
+train = input_data.iloc[0 :3300]</br>
+test = input_data.iloc[3300 : ]</br>
+test_label = test['label']</br>
+test_label = np.array(test_label).reshape([-1 , 1])</br>
+del(test['label'])</br>
+
+fold = 1</br>
+for i in range(fold):</br>
+    params = {</br>
+        'eta': 0.01, #use 0.002</br>
+        'max_depth': 5,</br>
+        'objective': 'binary:logistic',</br>
+        'eval_metric': 'logloss',</br>
+        'lambda':0.1,</br>
+        'gamma':0.1,</br>
+        'seed': i,</br>
+        'silent': True</br>
+    }</br>
+    x1 = train[cols][0:3000]</br>
+    x2 = train[cols][3000:]</br>
+    y1 = train['label'][0:3000]</br>
+    y2 = train['label'][3000 : ]</br>
+    watchlist = [(xgb.DMatrix(x1, y1), 'train'), (xgb.DMatrix(x2, y2), 'valid')]</br>
+    model = xgb.train(params, xgb.DMatrix(x1, y1), 1500,  watchlist, feval=xgb_score, maximize=False, verbose_eval=50, early_stopping_rounds=50) #use 1500</br>
+    if i != 0:</br>
+        pred += model.predict(xgb.DMatrix(test[cols]), ntree_limit=model.best_ntree_limit)</br>
+    else:</br>
+        pred = model.predict(xgb.DMatrix(test[cols]), ntree_limit=model.best_ntree_limit)</br>
+
+pred /= fold</br>
+pre_label = np.zeros([pred.shape[0], 1])</br>
+for i in range(pred.shape[0]):</br>
+    if pred[i] >= 0.5:</br>
+        pre_label[i] = 1</br>
+    else:</br>
+        pre_label[i] = 0</br>
+
+acc = np.mean(np.equal(pre_label, test_label).astype(np.float))</br>
+print("the test acc is:", acc)</br>
+
+model_save = open('model.pkl', 'wb')    #保存模型</br>
+pickle.dump(model, model_save)</br>
+model_save.close()</br>
+</br>
+<p style="text-align:center">测试过程</p>
+import xgboost as xgb</br>
+import pandas as pd</br>
+import numpy as np</br>
+import sklearn</br>
+import pickle</br>
+import pprint</br>
+import rpy2.robjects as robjects</br>
+from rpy2.robjects import r, pandas2ri</br>
+import os</br>
+os.chdir('C:/Users/TStra/Desktop/signal')</br>
+
+#get feature file</br>
+def get_feature(fname):</br>
+    pandas2ri.activate()</br>
+    robjects.r.source('feature_extract.R')</br>
+    data_read = robjects.r.processFolder(fname)</br>
+    data_read = pandas2ri.ri2py(data_read)</br>
+    return data_read</br>
+
+if __name__ == '__main__':</br>
+    data_list = []</br>
+    model_save = open('model.pkl', 'rb')</br>
+    model = pickle.load(model_save)</br>
+    model_save.close()</br>
+
+    file_name_list = os.listdir('data')             #读取声音文件</br>
+    for file_name in file_name_list:</br>
+        data = get_feature(file_name)</br>
+        data_list.append(data)</br>
+    test = pd.concat(data_list)             #获取wav特征</br>
+
+    pred = model.predict(xgb.DMatrix(test), ntree_limit=model.best_ntree_limit)</br>
+    print (pred)</br>
+    pre_label = np.zeros([pred.shape[0], 1])</br>
+    for i in range(pred.shape[0]):</br>
+        if pred[i] >= 0.5:</br>
+            pre_label[i] = pred[i]</br>
+        else:</br>
+            pre_label[i] = pred[i]</br>
+    num = 0</br>
+    tlen = len(pre_label)</br>
+    for i in pre_label:</br>
+        num += i</br>
+        print ('female is;'+str(num))</br>
+        print ('male is:'+str(tlen-num))</br>
+        print ((tlen-num)/tlen)</br>
+        print (num/tlen)        </br>
+</div>
 <div id="num10"></div>
+<div id="num5" style="margin-top:2700px">
+<span id="c2" ><h1>代码</h1></span>
+</div>
 </body>
 </html>
